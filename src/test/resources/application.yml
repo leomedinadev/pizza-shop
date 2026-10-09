@@ -1,0 +1,16 @@
+# Los tests usan H2 en memoria: no necesitan MySQL
+spring:
+  datasource:
+    url: jdbc:h2:mem:pizza_shop;MODE=MySQL;NON_KEYWORDS=USER;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+pizza-shop:
+  jwt:
+    secret: secreto-solo-para-tests
+  cors:
+    allowed-origins: http://localhost:4200

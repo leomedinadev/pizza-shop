@@ -9,11 +9,11 @@ ext {
 	springVersion                               = '5.2.6.RELEASE'
 	gradleLombokVersion 						= '1.18.30'
 	springSecurity								= '6.2.2'
-	pizzaShopVersion 							= '1.0.0-RELEASE'
+	pizzaShopVersion 							= '1.1.0-SNAPSHOT'
 }
 
-group = 'ec.com.tio.leo.dev'
-version = '1.0.0-RELEASE'
+group = 'ec.com.leodev.pizzashop'
+version = '1.1.0-SNAPSHOT'
 // sourceCompatibility = '17'
 
 java {
@@ -41,8 +41,11 @@ dependencies {
 	annotationProcessor "org.projectlombok:lombok:${gradleLombokVersion}"
 	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
 	testImplementation "org.springframework.security:spring-security-test:${springSecurity}"
+	testRuntimeOnly 'com.h2database:h2'
+	testCompileOnly "org.projectlombok:lombok:${gradleLombokVersion}"
+	testAnnotationProcessor "org.projectlombok:lombok:${gradleLombokVersion}"
 }
 
-//tasks.named('test') {
-//	useJUnitPlatform()
-//}
+tasks.named('test') {
+	useJUnitPlatform()
+}

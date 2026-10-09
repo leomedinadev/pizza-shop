@@ -7,9 +7,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://localhost:3306/pizza_shop?createDatabaseIfNotExist=true
-    url: jdbc:mysql://localhost:3306/pizza_shop
-    username: admin_pizza_shop
-    password: admin_pizza_shop
+    url: ${DB_URL:jdbc:mysql://localhost:3306/pizza_shop}
+    username: ${DB_USERNAME:admin_pizza_shop}
+    password: ${DB_PASSWORD:admin_pizza_shop}
   jpa:
     # hibernate:
     #   ddl-auto: update
@@ -29,3 +29,11 @@ springdoc:
     path: /api/public/v3/api-docs
   swagger-ui:
     path: /api/public/swagger-ui.html
+
+pizza-shop:
+  jwt:
+    # Obligatorio: secreto para firmar los tokens. No tiene valor por defecto a propósito.
+    secret: ${JWT_SECRET}
+  cors:
+    # Orígenes permitidos, separados por comas
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:*}
