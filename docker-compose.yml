@@ -1,0 +1,24 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: pizza-shop-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-admin}
+      - MYSQL_DATABASE=pizza_shop
+      - MYSQL_USER=${DB_USERNAME:-admin_pizza_shop}
+      - MYSQL_PASSWORD=${DB_PASSWORD:-admin_pizza_shop}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      # Solo se ejecutan la primera vez, con el volumen vacío: crean las tablas y los datos de ejemplo
+      - ./scriptDB.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./ScriptInsertData.sql:/docker-entrypoint-initdb.d/02-data.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mysql_data:
